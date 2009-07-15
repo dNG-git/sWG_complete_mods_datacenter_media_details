@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<swg_modlist_file_v1 xmlns="urn:de.direct-netware.xmlns:swg.modlist.v1">
+<mod module='basic' function='basic_ddb_link' />
+<mod module='basic' function='basic_image' />
+<mod module='basic' function='basic_text' />
+<mod module='basic' function='basic_download' />
+</swg_modlist_file_v1>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="system/mods/datacenter_media_details"/>
+	<buildpathentry kind="src" path="system/osets/default_etitle/mods/datacenter_media_details"/>
+	<buildpathentry kind="src" path="system/osets/default/mods/datacenter_media_details"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+</buildpath>
