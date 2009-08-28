@@ -89,15 +89,12 @@ function direct_mods_datacenter_media_details_basic_ddb_link_view ($f_data)
 	global $direct_cachedata,$direct_settings;
 	if (USE_debug_reporting) { direct_debug (8,"sWG/#echo(__FILEPATH__)# -direct_mods_datacenter_media_details_basic_ddb_link_view (+f_data)- (#echo(__LINE__)#)"); }
 
-	if ($f_data[0]) { $f_return = $f_data[0]; }
-	else { $f_return = array (); }
+	$f_return = (($f_data[0]) ? $f_data[0] : array ());
 
 	if (empty ($f_return))
 	{
 		$f_link_array = $f_data[1]->get ();
-
-		if ($f_link_array['ddbdatacenter_type'] == "text/x-ddb-link") { $f_link_evars_array = $f_data[1]->get_evars (); }
-		else { $f_link_evars_array = NULL; }
+		$f_link_evars_array = (($f_link_array['ddbdatacenter_type'] == "text/x-ddb-link") ? $f_data[1]->get_evars () : NULL);
 
 		if ((is_array ($f_link_evars_array))&&(isset ($f_link_evars_array['ddbdatacenter_link_url'])))
 		{
@@ -162,8 +159,7 @@ function direct_mods_datacenter_media_details_basic_download_view ($f_data)
 	global $direct_cachedata;
 	if (USE_debug_reporting) { direct_debug (8,"sWG/#echo(__FILEPATH__)# -direct_mods_datacenter_media_details_basic_download_view (+f_data)- (#echo(__LINE__)#)"); }
 
-	if ($f_data[0]) { $f_return = $f_data[0]; }
-	else { $f_return = array (); }
+	$f_return = ($f_data[0] ? $f_data[0] : array ());
 
 	if (empty ($f_return))
 	{
@@ -209,15 +205,12 @@ function direct_mods_datacenter_media_details_basic_image_view ($f_data)
 	global $direct_cachedata,$direct_classes,$direct_settings;
 	if (USE_debug_reporting) { direct_debug (8,"sWG/#echo(__FILEPATH__)# -direct_mods_datacenter_media_details_basic_image_view (+f_data)- (#echo(__LINE__)#)"); }
 
-	if ($f_data[0]) { $f_return = $f_data[0]; }
-	else { $f_return = array (); }
+	$f_return = ($f_data[0] ? $f_data[0] : array ());
 
 	if (empty ($f_return))
 	{
+		$f_file_path = (($f_data[1]->is_physical ()) ? "" : $direct_classes['basic_functions']->varfilter ($direct_settings['datacenter_path_upload'],"settings"));
 		$f_object_array = $f_data[1]->get ();
-
-		if ($f_data[1]->is_physical ()) { $f_file_path = ""; }
-		else { $f_file_path = $direct_classes['basic_functions']->varfilter ($direct_settings['datacenter_path_upload'],"settings"); }
 
 		if (($f_object_array['ddbdatacenter_type'] == "image/gif")||($f_object_array['ddbdatacenter_type'] == "image/jpeg")||($f_object_array['ddbdatacenter_type'] == "image/png")) { $f_file_path = $f_data[1]->get_plocation ($f_file_path); }
 		else { $f_file_path = ""; }
@@ -226,9 +219,7 @@ function direct_mods_datacenter_media_details_basic_image_view ($f_data)
 		{
 			$f_object_pageurl = direct_linker_dynamic ("url0","m=datacenter&a=transfer&dsd=doid+".(urlencode ($f_object_array['ddbdatalinker_id'])),true,false);
 			$f_object_array = $f_data[1]->parse ("m=datacenter&s=media&a=[a]&dsd=[oid]");
-
-			if (strlen ($f_object_array['title_alt'])) { $f_object_title = $f_object_array['title_alt']; }
-			else { $f_object_title = $f_object_array['title']; }
+			$f_object_title = ((strlen ($f_object_array['title_alt'])) ? $f_object_array['title_alt'] : $f_object_array['title']);
 
 			$direct_cachedata['output_mods_datacenter_media_details_htmlbox'] = "<a href=\"{$f_object_array['pageurl_download']}\" target='_self'><img src=\"$f_object_pageurl\" border='0' alt=\"$f_object_title\" title=\"$f_object_title\" /></a>";
 			$f_return[] = "htmlbox";
@@ -262,18 +253,14 @@ function direct_mods_datacenter_media_details_basic_text_view ($f_data)
 	global $direct_cachedata,$direct_classes,$direct_settings;
 	if (USE_debug_reporting) { direct_debug (8,"sWG/#echo(__FILEPATH__)# -direct_mods_datacenter_media_details_basic_text_view (+f_data)- (#echo(__LINE__)#)"); }
 
-	if ($f_data[0]) { $f_return = $f_data[0]; }
-	else { $f_return = array (); }
+	$f_return = ($f_data[0] ? $f_data[0] : array ());
 
 	if (empty ($f_return))
 	{
+		$f_file_path = (($f_data[1]->is_physical ()) ? "" : $direct_classes['basic_functions']->varfilter ($direct_settings['datacenter_path_upload'],"settings"));
 		$f_object_array = $f_data[1]->get ();
 
-		if ($f_data[1]->is_physical ()) { $f_file_path = ""; }
-		else { $f_file_path = $direct_classes['basic_functions']->varfilter ($direct_settings['datacenter_path_upload'],"settings"); }
-
-		if ($f_object_array['ddbdatacenter_type'] == "text/plain") { $f_file_path = $f_data[1]->get_plocation ($f_file_path); }
-		else { $f_file_path = ""; }
+		$f_file_path = (($f_object_array['ddbdatacenter_type'] == "text/plain") ? $f_data[1]->get_plocation ($f_file_path) : "");
 
 		if (($f_file_path)&&(file_exists ($f_file_path)))
 		{
